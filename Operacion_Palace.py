@@ -11,6 +11,33 @@ class Stats:
     def reset_stats(self):
         self.lulos_left = self.ai_settings.lulos_limit
 
+class Willys():
+    def __init__(self,ai_settings,screen):
+        self.screen = screen
+        self.ai_settings = ai_settings
+        self.image = pygame.image.load('willys.bmp')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+        self.rect.y = 600
+        self.ai_settings = ai_settings
+        self.rect.x = 0
+        self.center = float(self.rect.centerx)
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+class Titulo():
+    def __init__(self,ai_settings,screen):
+        self.screen = screen
+        self.ai_settings = ai_settings
+        self.image = pygame.image.load('palace2.png')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+        self.rect.y = 0
+        self.ai_settings = ai_settings
+        self.rect.x = 100
+        self.center = float(self.rect.centerx)
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+
 class Canela(Sprite):
     def __init__(self,ai_settings,screen):
         super().__init__()
@@ -74,7 +101,7 @@ class Bullet(Sprite):
 class Settings():
     def __init__(self):
         self.bullet_speed_factor = 5.1
-        self.bullets_allowed = 10
+        self.bullets_allowed = 7
         self.bullet_width = 6
         self.bullet_height = 15
         self.fleet_drop_speed = 10
@@ -83,8 +110,8 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (230, 230, 230)
-        self.canela_speed_factor = 5
-        self.lulo_speed_factor = 4.5
+        self.canela_speed_factor = 9
+        self.lulo_speed_factor = 7
         self.lulos_limit = 3
 
 def check_key_down(event,game_settings,screen,lulo,bullets):
@@ -130,9 +157,11 @@ def check_events(game_settings, screen, lulo, bullets):
         elif event.type == pygame.KEYUP:
             check_key_up(event,lulo)
 
-def update_screen(game_settings,screen,lulo,canelas,bullets):
+def update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo):
     screen.fill(game_settings.bg_color)
     lulo.blitme()
+    willys.blitme()
+    titulo.blitme()
     canelas.draw(screen)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -178,7 +207,7 @@ def check_canelas_bottom(ai_settings,stats,screen,lulo,canelas,bullets):
     screen_rect = screen.get_rect()
     for canela in canelas.sprites():
         if canela.rect.bottom >= screen_rect.bottom:
-            # Treat this the same as if lulo got hit.
+            # Lo mismo si le disparaon a lulo
             lulo_hit(ai_settings, stats, screen, lulo, canelas, bullets)
             break
 
@@ -208,6 +237,8 @@ def run_game():
     lulo = Lulo(game_settings,screen)
     bullets = pygame.sprite.Group()
     stats = Stats(game_settings)
+    willys = Willys(game_settings,screen)
+    titulo = Titulo(game_settings,screen)
     canelas = pygame.sprite.Group()
     create_fleet(game_settings, screen,lulo, canelas)
     while True:
@@ -216,5 +247,5 @@ def run_game():
             lulo.update()
             update_bullets(game_settings,screen,lulo,canelas,bullets)
             update_canelas(game_settings,stats,screen,lulo,canelas,bullets)
-        update_screen(game_settings,screen,lulo,canelas,bullets)
+        update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo)
 run_game()
