@@ -11,6 +11,34 @@ class Stats:
     def reset_stats(self):
         self.lulos_left = self.ai_settings.lulos_limit
 
+class Mami():
+    def __init__(self,ai_settings,screen):
+        self.screen = screen
+        self.ai_settings = ai_settings
+        self.image = pygame.image.load('mami.jpeg')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+        self.rect.y = 600
+        self.ai_settings = ai_settings
+        self.rect.x = 1000
+        self.center = float(self.rect.centerx)
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+
+class Pachis():
+    def __init__(self,ai_settings,screen):
+        self.screen = screen
+        self.ai_settings = ai_settings
+        self.image = pygame.image.load('paz.jpeg')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+        self.rect.y = 300
+        self.ai_settings = ai_settings
+        self.rect.x = 1000
+        self.center = float(self.rect.centerx)
+    def blitme(self):
+        self.screen.blit(self.image, self.rect)
+        
 class Willys():
     def __init__(self,ai_settings,screen):
         self.screen = screen
@@ -110,7 +138,7 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (230, 230, 230)
-        self.canela_speed_factor = 9
+        self.canela_speed_factor = 9.5
         self.lulo_speed_factor = 7
         self.lulos_limit = 3
 
@@ -157,11 +185,13 @@ def check_events(game_settings, screen, lulo, bullets):
         elif event.type == pygame.KEYUP:
             check_key_up(event,lulo)
 
-def update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo):
+def update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo,mami,pachis):
     screen.fill(game_settings.bg_color)
     lulo.blitme()
     willys.blitme()
     titulo.blitme()
+    mami.blitme()
+    pachis.blitme()
     canelas.draw(screen)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -239,6 +269,8 @@ def run_game():
     stats = Stats(game_settings)
     willys = Willys(game_settings,screen)
     titulo = Titulo(game_settings,screen)
+    pachis = Pachis(game_settings,screen)
+    mami = Mami(game_settings,screen)
     canelas = pygame.sprite.Group()
     create_fleet(game_settings, screen,lulo, canelas)
     while True:
@@ -247,5 +279,5 @@ def run_game():
             lulo.update()
             update_bullets(game_settings,screen,lulo,canelas,bullets)
             update_canelas(game_settings,stats,screen,lulo,canelas,bullets)
-        update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo)
+        update_screen(game_settings,screen,lulo,canelas,bullets,willys,titulo,mami,pachis)
 run_game()
