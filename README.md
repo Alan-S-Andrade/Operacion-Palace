@@ -3,6 +3,7 @@
 ## Bienvenido Cadete:
 
 1. Clone or Download: Download ZIP
+2. Click en la descarga
 2. Abrir Terminal (Aplicación en Mac)
 3. 'cd'
 4. 'cd Descargas'
