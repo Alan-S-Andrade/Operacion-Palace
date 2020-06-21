@@ -15,3 +15,5 @@ Reglas:
 ESPACIO - Disparar
 
 FLECHA IZQUIERDA/DERECHA - Movimiento
+
+Q - Terminar
