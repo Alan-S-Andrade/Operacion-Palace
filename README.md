@@ -13,4 +13,5 @@
 Reglas:
 
 ESPACIO - Disparar
+
 FLECHA IZQUIERDA/DERECHA - Movimiento
