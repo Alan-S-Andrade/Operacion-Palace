@@ -264,6 +264,8 @@ def run_game():
     pygame.display.set_caption("Operación Lulo")
     game_settings = Settings()
     screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
+    pygame.mixer.music.load('himno.mp3')
+    pygame.mixer.music.play(-1)
     lulo = Lulo(game_settings,screen)
     bullets = pygame.sprite.Group()
     stats = Stats(game_settings)
