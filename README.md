@@ -8,7 +8,8 @@
 4. 'cd Downloads'
 5. 'cd Operacion-Palace-master'
 6. 'brew install python3'
-7. 'python3 Operacion-Palace.py'
+7. Subir Volumén
+8. 'python3 Operacion-Palace.py'
 
 Reglas:
 
